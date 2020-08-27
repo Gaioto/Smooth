@@ -1,0 +1,67 @@
+<Text style={styles.texto}>Usuário</Text>
+
+<Text style={styles.texto}>Senha</Text>
+
+behavior={
+        Platform.OS === 'android'
+        ? 'padding'
+        : null
+      }
+
+
+      useEffect(() => {
+    Animated.parallel([
+      Animated.spring(offset.y, {
+        toValue: 0,
+        speed: 4,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 500,
+      })
+    ]).start();
+
+  }, []);
+
+
+  {
+          opacity: opacity,
+          transform: [
+            { translateY: offset.y }
+          ]
+        }
+
+
+        if (username === "" && senha === "") {
+        toast('Por favor preencha os campos!')
+      } else {
+        if (user === null) {
+          toast('Usuário não cadastrado no sistema!')
+        } else {
+          if (user.username === username && user.senha === senha) {
+            navigation.navigate('User')
+          } else {
+            toast('Usuário ou senha incorretos!')
+          }
+        }
+      }
+
+
+      if (username === "" && senha === "") {
+      toast('Por favor preencha os campos!')
+    } else {
+      const json = buscarUsuario(usuario.user);
+      if (json != null) {
+        toast('Usuário já cadastrado no sistema')
+      } else {
+        inserirUsuario(username, usuario.user);
+        toast('Usuário cadastrado no sistema')
+
+
+        buscarUsuario(username, (erros, user) => {
+       if ( erros ) {
+         Alert.alert('teste')
+       } else {
+         setUsername(user.senha)
+       }
+     })
